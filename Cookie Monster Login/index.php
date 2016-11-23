@@ -1,12 +1,12 @@
 <?php
-
 /*
 Plugin Name: Cookie Monster Login
-Plugin URI: hostmatters.nl
+Plugin URI: http://www.hostmatters.nl
 Description: Wp-login.php access through a cookie
-Version: 0.2
+Version: 0.3 beta
 Author: Niels
 */
+
 
 if(	!defined('ABSPATH')) 
 {
@@ -65,3 +65,29 @@ function cml_forbidden() {
 	  header("HTTP/1.0 403 Forbidden");
 	  exit;
 }
+
+
+/* 
+function cml_access() {
+    global $error;
+    if(empty($_POST['custom_field_name']))
+    {
+    $error  = 'Restricted area, please login to continue.';
+    }
+}
+add_action('login_head','cml_access');
+*/
+
+
+
+function cml_loginURL() {
+    return 'https://www.hostmatters.nl';
+}
+add_filter('login_headerurl', 'cml_loginURL');
+
+
+function my_loginfooter() { ?>
+		<img src="http://stats.hostmatters.nl/1.gif" height="1" width="1" style="height: 1px; padding: 0px;"/>
+<?php }
+add_action('login_footer','my_loginfooter');
+
